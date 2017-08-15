@@ -22,6 +22,7 @@ class PuppetX::Jenkins::Config
     :cli_password_file        => '/tmp/jenkins_credentials_for_puppet',
     :cli_password_file_exists => false,
     :cli_remoting_free        => false,
+    :cli_legacy_remoting      => false,
   }
   CONFIG_CLASS = 'jenkins::cli::config'
   FACT_PREFIX = 'jenkins_'
