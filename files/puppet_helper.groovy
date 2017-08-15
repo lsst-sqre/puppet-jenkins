@@ -251,11 +251,11 @@ class Actions {
   /////////////////////////
   // create or update user from JSON
   /////////////////////////
-  void user_update(String jsonfile) { // or create
+  void user_update() { // or create
     // parse JSON doc from stdin
     def slurper = new groovy.json.JsonSlurper()
-    def conf = slurper.parse(new File(jsonfile))
-
+    def text = bindings.stdin.text
+    def conf = slurper.parseText(text)
 
     // a user id is required
     def id = conf['id']
@@ -559,12 +559,13 @@ class Actions {
    * modify an existing credentials specified by a JSON document passed via
    * the stdin
   */
-  void credentials_update_json(String jsonfile) {
+  void credentials_update_json() {
     def j = Jenkins.getInstance()
 
     // parse JSON doc from stdin
     def slurper = new groovy.json.JsonSlurper()
-    def conf = slurper.parse(new File(jsonfile))
+    def text = bindings.stdin.text
+    def conf = slurper.parseText(text)
 
     def cred = null
     switch (conf['impl']) {
@@ -843,7 +844,7 @@ class Actions {
   ////////////////////////
   // set_jenkins_instance
   ////////////////////////
-  void set_jenkins_instance(String jsonfile) {
+  void set_jenkins_instance() {
     def j = Jenkins.getInstance()
 
     def setup = { info ->
@@ -863,7 +864,8 @@ class Actions {
 
     // parse JSON doc from stdin
     def slurper = new groovy.json.JsonSlurper()
-    def conf = slurper.parse(new File(jsonfile))
+    def text = bindings.stdin.text
+    def conf = slurper.parseText(text)
 
     // each key in the hash is a method on the Jenkins singleton.  The key's
     // value is an object to instantiate and pass to the method.  (currently,
