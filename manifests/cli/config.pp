@@ -19,8 +19,8 @@ class jenkins::cli::config(
   Boolean $cli_password_file_exists               = false,
   Optional[Boolean] $cli_remoting_free            = undef,
   Optional[String] $ssh_private_key_content       = undef,
+  Optional[Boolean] $cli_legacy_remoting          = undef,
 ) {
-
   if str2bool($::is_pe) {
     $gem_provider = 'pe_gem'
   } elsif $::puppetversion

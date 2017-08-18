@@ -181,12 +181,17 @@ class PuppetX::Jenkins::Provider::Cli < Puppet::Provider
     cli_password_file        = config[:cli_password_file]
     cli_password_file_exists = config[:cli_password_file_exists]
     cli_remoting_free        = config[:cli_remoting_free]
+    cli_legacy_remoting      = config[:cli_legacy_remoting]
 
     base_cmd = cli_pre_cmd + [
       command(:java),
       '-jar', cli_jar,
       '-s', url,
     ]
+
+    if cli_legacy_remoting
+      base_cmd = base_cmd + ['-remoting']
+    end
 
     cli_cmd = base_cmd + [command]
     cli_cmd.flatten!
